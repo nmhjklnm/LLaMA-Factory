@@ -1,5 +1,5 @@
 # 定义模型名称和微调类型
-MODEL_NAME='meta-llama/Llama-2-7b-chat-hf'
+MODEL_NAME='unsloth/llama-2-7b'
 FINETUNING_TYPE="lora"
 
 BASE_MODEL_NAME="${MODEL_NAME##*/}"
@@ -10,7 +10,7 @@ TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S")
 SAVE_DIR="saves/${BASE_MODEL_NAME}/${FINETUNING_TYPE}/train_${TIMESTAMP}"
 
 # 执行训练命令，使用生成的路径作为output_dir参数
-CUDA_VISIBLE_DEVICES=0,1,2,3,6,7 accelerate launch --config_file config.yaml src/train_bash.py \
+CUDA_VISIBLE_DEVICES=1,2,3,6 accelerate launch --config_file config.yaml src/train_bash.py \
     --stage sft \
     --do_train \
     --model_name_or_path ${MODEL_NAME} \
